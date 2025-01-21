@@ -1,1 +1,24 @@
+recettes = {
+    "Pizza": {"farine", "eau", "sel", "levure", "tomate", "fromage"},
+    "Salade": {"laitue", "tomate", "concombre", "vinaigre", "huile"},
+    "Pâtes Carbonara": {"pâtes", "crème", "lardons", "fromage", "sel", "poivre"},
+    "Omelette": {"œufs", "sel", "poivre", "fromage", "herbes"},
+    "Sandwich Jambon-Beurre": {"pain", "beurre", "jambon", "salade"}
+}
 
+def recettes_disponibles(ingredients_disponibles):
+    return list(filter(lambda recette: recettes[recette].issubset(ingredients_disponibles),recettes.keys()
+    ))
+
+test_ingredients = [
+    {"farine", "eau", "sel", "levure", "tomate", "fromage"},  # Pizza
+    {"pain", "beurre", "jambon"},  # Aucun
+    {"œufs", "sel", "poivre", "fromage", "herbes"},  # Omelette
+    {"laitue", "tomate", "concombre", "vinaigre", "huile"}  # Salade
+]
+
+list(map(lambda ingredients: print(f"Ingrédients disponibles: {ingredients}\n"
+f"Recettes possibles: {', '.join(recettes_disponibles(ingredients)) if recettes_disponibles(ingredients) else 'Aucune recette réalisable'}\n"
+    ),
+    test_ingredients
+))
