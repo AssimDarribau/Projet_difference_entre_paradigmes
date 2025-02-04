@@ -1,0 +1,115 @@
+#question 1.1 :
+
+carre = lambda x: x * x
+
+#question 1.2 :
+
+nombres = [1, 2, 3, 4, 5]
+carres = list(map(lambda x: x * x, nombres))
+print(carres)
+
+#question 1.3 :
+
+somme = lambda a, b: a + b
+
+#question 1.4 :
+
+from functools import reduce
+
+nombres = [1, 2, 3, 4, 5]
+somme_totale = reduce(lambda a, b: a + b, nombres)
+print(somme_totale)
+
+#question 2.1 :
+def create_multiplier(n):
+    return lambda x: x * n
+multiplier_par_3 = create_multiplier(3)
+double = create_multiplier(2)
+triple=create_multiplier(3)
+
+#question 3
+mots = ["arbre", "banane", "abricot", "cerise", "avocat", "pomme", "ananas"]
+mots_filtrés = list(filter(lambda mot: mot.startswith("a"), mots))
+print(mots_filtrés)
+
+def create_length_counter(min_length):
+    return lambda words: sum(1 for word in words if len(word) > min_length)
+
+compter_mots_long = create_length_counter(5)
+
+mots = ["arbre", "banane", "abricot", "cerise", "avocat", "pomme", "ananas"]
+
+nombre_mots_longs = compter_mots_long(mots)
+print(nombre_mots_longs)
+
+def compose(f, g):
+    return lambda x: f(g(x))
+f1 = lambda x : x+2
+f2= lambda x : x*3
+
+composer = compose(f1, f2)
+
+print (composer(4))
+
+#exerice 6 :
+def filterMap(fonc, map_f, lst):
+    return [map_f(x) for x in lst if fonc(x)]
+
+is_even = lambda x: x % 2 == 0
+square = lambda x: x * x
+
+liste = [1, 2, 3, 4, 5, 6]
+resultat = filterMap(is_even, square, liste)
+print(resultat)  # Résultat : [4, 16, 36]
+
+#exercice 7
+
+def memoize(f):
+    cache = {}
+    def memorized_function(x):
+        if x not in cache:
+            cache[x] = f(x)
+        return cache[x]
+    return memorized_function
+def factorielle(n):
+    return 1 if n == 0 else n * factorielle(n - 1)
+
+factorielle_memo = memoize(factorielle)
+
+print(factorielle_memo(5))  # Résultat : 120
+print(factorielle_memo(8))  # Résultat : 40320
+
+def fibonacci(n):
+    return n if n <= 1 else fibonacci(n - 1) + fibonacci(n - 2)
+
+fibonacci_memo = memoize(fibonacci)
+
+print(fibonacci_memo(10))  # Résultat : 55
+print(fibonacci_memo(20))  # Résultat : 6765
+
+
+#exercice 8
+
+def calculateDiscount(produits, reduction):
+
+    appliquer_reduction = lambda prix: prix * (1 - reduction / 100) # % de la réduction
+
+    total_apres_reduction = sum(map(lambda prod: appliquer_reduction(prod[1]), produits))
+
+    return round(total_apres_reduction, 2) # fonction pour arrondir
+
+produits = [
+    ("Ordinateur", 1000),
+    ("Clavier", 50),
+    ("Souris", 30),
+    ("Écran", 200),
+    ("Casque", 80)
+]
+
+reduction_pourcentage = 20
+
+total_reduit = calculateDiscount(produits, reduction_pourcentage)
+
+print(f"Les - {reduction_pourcentage}% de réduction ont été appliqué: {total_reduit}€")
+
+
